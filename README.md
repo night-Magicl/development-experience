@@ -10,3 +10,7 @@
         git commit -m "first commit"
         git remote add origin https://github.com/Briwisdom/HelloWorld.git（后面跟的GitHub地址也可以是ssh地址）
         git push -u origin master
+                                              git bash 常用命令
+                                              git add .   (选择提交文件，add后可跟具体文件名，. 是所有文件）
+                                              git commit -m ''
+                                              git push
