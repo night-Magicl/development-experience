@@ -1,0 +1,17 @@
+						公有私有区别
+	创建仓库无限制，但是多人开发有限制区别，公有人数无限制，私有最多3人协助开发，想要扩展私有协助人数需要付费。公有可以拉到你的代码，但是不能进行push，私有
+    
+    						切换公有私有模式：
+        1.对于自己创建的repository，打开repository，点击settings，在最底部的Danger Zone找到Make this repository public（即第一项）点击按钮即可切换公私模式
+        2.Fork别人的仓库：参考--https://www.cnblogs.com/tangjian07/p/10582127.html
+            （1）.在新创建仓库的时候就可import a repository，可以选择公私有模式；
+            （2）.在创建完repository再import code（不要自动生成README.md文件），在最底部点击，可以选择公私有模式；
+	注意：import的路由可以填https路径，也可直接复制repository的页面路由，但ssh方式不可，repository不能重名
+
+    						多人开发实现：
+        1.合作者,比较实用，也很方便
+            打开repository，点击settings，选择collaborators，在搜索框中搜索合作者账号，然后add，这样项目合作者就可以push代码到项目中来了
+        2.fork的方式多人开发，一般针对大型开源项目：https://www.jianshu.com/p/8c69d1021d98
+            fork别人远程repository的代码到你自己的远程repository，然后clone下来进行开发，推送到自己的远程repository再点击new pull request查看不同，给不同的分支Create pull request给目标远程repository，填上一些说明信息。目标确认到你发的请求后就会进行合并。
+        3.组织，组织的所有者可以针对不同的代码仓库建立不同访问权限的团队
+            Accounts Settings => Organizations =>Create new Organizations 新建一个组织  然后添加项目成员，根据提示设置完毕即可，然后新建一个Repository，新建完毕后  进入Repository的Settings =>Collaborators 在Teams下面点击刚创建的组织 比如eveloper-51/owners里面就可以添加或者remove组织成员
