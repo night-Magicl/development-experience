@@ -1,0 +1,50 @@
+					配置项
+root 限定配置文件的使用范围
+parser 指定eslint的解析器
+parserOptions 设置解析器选项
+extends 指定eslint规范
+plugins 引用第三方的插件
+env 指定代码运行的宿主环境
+rules 启用额外的规则或覆盖默认的规则
+globals 声明在代码中的自定义全局变量
+
+				详解：
+	parser：解析器，解析es6，7的代码，最常用的就是babel-eslint，如果使用其他通用parsers，如babel-eslint，需要把他写在parserOptions.parser里面而不是parser选项里
+	extends：eslint引入的第三方规范插件，主要验证js文件
+		"eslint:recommended",//启用elsint推荐的规则
+  		"plugin:vue/recommended" //启用eslint-plugin-vue推荐的规则
+	rules：不可或缺，但可以使用第三方插件，在extends配置，在引入了第三方库后还可以指定一些自己规定的规范
+		通常使用'ruleId':['error', 'always'],或是'ruleId':'bloean'
+		当修改某个插件内的规则是，使用：插件名/规则ID的形式
+			如extends: ['prettier'],rules:{'prettier/ruleId':'error'}
+		规则级别：
+			"off" 或 0 - 关闭规则
+			"warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出)
+			"error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
+	plugins：此插件用来识别.html 和 .vue文件中的js代码，可以省略插件前缀：eslint-plugins-
+	env：环境，一般有browser,node,指定了环境，你就可以放心的使用它们的全局变量和属性
+
+
+
+第三方插件：
+eslint-friendly-formatter 可以让eslint的错误信息出现在终端上
+eslint-plugin-vue 检查.vue文件中的<template> and <script>,查找语法，vue指令，vue风格指南错误
+eslint规范第三方插件推荐使用prettier，可以格式化js，css，但是vue模板暂时不支持，所以需要安装商法的vue插件，在创建了.prettier文件并添加了规则之后，需要在webpack.base.config文件里的rules:[options:{fix:true}]就可在保存后自动格式化代码
+	需要安装npm i -D prettier，npm i -D eslint-config-prettier,npm i -D eslint-plugin-prettier
+	参考：https://segmentfault.com/a/1190000015315545?utm_source=tag-newest
+		或者：https://juejin.im/post/5b27a326e51d45588a7dac57
+
+				git commit时检查代码是否有错，若有则禁止提交
+	安装npm install --save-dev lint-staged husky插件，然后再packjson文件中配置
+		"husky": {
+    			"hooks": {
+      				"pre-commit": "lint-staged"
+    				}
+  			},
+  		"lint-staged": {
+    			"*.{js,vue}": "eslint"
+  		},
+	参考：https://blog.csdn.net/weixin_34261415/article/details/91420552
+
+
+				jsx语法匹配

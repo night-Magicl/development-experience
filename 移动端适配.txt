@@ -1,0 +1,44 @@
+						1.百分比+固定高度布局方案
+	固定屏幕为理想视口宽度
+	少许的媒体查询设置字体
+	水平百分比布局
+	水平方向部分也可以使用弹性布局
+						2.Rem解决方案
+	Rem的大小取值：根据页面的dpr动态改变
+	Rem的取值： 1rem = 100px 或者 1rem = 1/10 * 理想视口的宽度(client_width)
+	chrome浏览器字体小于12px（会被重置为12px)
+						3.固定设计稿的宽度开发+根据设备动态适配缩放，将该js文件放在跟index.html文件引入，同时设置meta
+window.onload = function(){
+    /*375代表设计师给的设计稿的宽度，你的设计稿是多少，就写多少;
+    100代表换算比例，这里写100是为了以后好算,
+    比如，你测量的一个宽度是100px,就可以写为1rem,以及1px=0.01rem等等*/
+    getRem(375,100)
+};
+window.onresize = function(){
+    getRem(375,100)
+};
+function getRem(pwidth,prem){
+    var html = document.getElementsByTagName("html")[0];
+    var oWidth = document.body.clientWidth || document.documentElement.clientWidth;
+    html.style.fontSize = oWidth/pwidth*prem + "px";
+}
+
+		px自动转换rem
+vue项目中postcss-plugin-px2rem的使用及webpack中的配置 css中单位px
+	原因：postcss-plugin-px2rem 这个插件  配置选项上有  exclude 属性，它可以配置 是否对 某个文件夹下的所有css文件不进行从px到rem的转换，这样用到的UI插件就不会吧px转成rem了
+postcss: {
+                plugins: [
+                    require('postcss-plugin-px2rem')({
+                        // rootValue: 100, //换算基数， 默认100 
+                        // unitPrecision: 5, //允许REM单位增长到的十进制数字。
+                        //propWhiteList: [],  //默认值是一个空数组，这意味着禁用白名单并启用所有属性。
+                        // propBlackList: [], //黑名单
+                        exclude: /(node_module)/,  //默认false，可以（reg）利用正则表达式排除某些文件夹的方法，例如/(node_module)/ 。如果想把前端UI框架内的px也转换成rem，请把此属性设为默认值
+                        // selectorBlackList: [], //要忽略并保留为px的选择器
+                        // ignoreIdentifier: false,  //（boolean/string）忽略单个属性的方法，启用ignoreidentifier后，replace将自动设置为true。
+                        // replace: true, // （布尔值）替换包含REM的规则，而不是添加回退。
+                        mediaQuery: false,  //（布尔值）允许在媒体查询中转换px。
+                        minPixelValue: 3 //设置要替换的最小像素值(3px会被转rem)。 默认 0
+                    }),
+                ]
+            }
