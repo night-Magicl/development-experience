@@ -1,0 +1,66 @@
+// 方法一：localstorage(推荐使用)
+        openAnniversaryLayer() {
+            let dates = new Date();
+            if (CacheUtils.getLocalJson('isOpenAnniversaryLayer').time === undefined) {
+                CacheUtils.setLocalJson('isOpenAnniversaryLayer', {
+                    'time': dates.toLocaleDateString()
+                });
+                Api.consumer.v1_shellWindowApi_getShellWindow().then(res => {
+                    if (res) {
+                        this.threeAnniversaryData.imgUrl = res.imgUrl;
+                        this.threeAnniversaryData.targetUrl = res.targetUrl;
+                        this.anniversaryShow = true;
+                        this.$bury('3AC_SHELLWINDOW_EXPOSURE');
+                    }
+                });
+            } else {
+                let nowTime = dates.getTime();
+                let beforeTime = new Date(CacheUtils.getLocalJson('isOpenAnniversaryLayer').time).getTime() + 24 * 60 * 60 * 1000 - 1;
+                if (nowTime > beforeTime) {
+                    CacheUtils.setLocalJson('isOpenAnniversaryLayer', {
+                        'time': dates.toLocaleDateString()
+                    });
+                    Api.consumer.v1_shellWindowApi_getShellWindow().then(res => {
+                        if (res) {
+                            this.threeAnniversaryData.imgUrl = res.imgUrl;
+                            this.threeAnniversaryData.targetUrl = res.targetUrl;
+                            this.anniversaryShow = true;
+                            this.$bury('3AC_SHELLWINDOW_EXPOSURE');
+                        }
+                    });
+                }
+            }
+
+方法二：cookie，但是对于安卓客户端的支持不是恨友好，会有获取不到cookie的情况
+            // let expiredays = (lastTime - startTime) / 1000 / 60 / 60 / 24;
+            // eslint-disable-next-line no-console
+            // console.log(!CacheUtils.getCookie('exam'));
+            // let dates = new Date();
+            // let startTime = dates.getTime();
+            // let lastTime = new Date(dates.toLocaleDateString()).getTime() + 15 * 60 * 60 * 1000 - 1 + 39 * 60 * 1000;
+            // let expiredays = (lastTime - startTime) / 1000 / 60 / 60 / 24;
+            // CacheUtils.setCookie('exam', true, expiredays);
+            // eslint-disable-next-line no-console
+            // console.log('获取cookie，1：' + CacheUtils.getCookie('isOpenAnniversaryLayer'));
+            // if (!CacheUtils.getCookie('isOpenAnniversaryLayer')) {
+            //     this.$bury('3AC_SHELLWINDOW_EXPOSURE');
+            //     this.anniversaryShow = true;
+            //     CacheUtils.setCookie('isOpenAnniversaryLayer', true, 1);
+            //     Api.consumer.v1_shellWindowApi_getShellWindow().then(res => {
+            //         if (res) {
+            //             this.threeAnniversaryData.imgUrl = res.imgUrl;
+            //             this.threeAnniversaryData.targetUrl = res.targetUrl;
+            //             this.anniversaryShow = true;
+            //             this.$bury('3AC_SHELLWINDOW_EXPOSURE');
+            //             let dates = new Date();
+            //             let startTime = dates.getTime();
+            //             let lastTime = new Date(dates.toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000 - 1;
+            //             let expiredays = (lastTime - startTime) / 1000 / 60 / 60 / 24;
+            //             CacheUtils.setCookie('isOpenAnniversaryLayer', true, expiredays, '', '/');
+            //         }
+            //     });
+            // } else {
+            //     // eslint-disable-next-line no-console
+            //     console.log('获取cookie，2：' + CacheUtils.getCookie('isOpenAnniversaryLayer'));
+            // }
+        },
