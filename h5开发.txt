@@ -42,3 +42,5 @@ postcss: {
                     }),
                 ]
             }
+	    				h5（vue）好用的video插件
+西瓜视频，文档很全，功能也比较完善(http://h5player.bytedance.com/)
