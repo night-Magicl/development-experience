@@ -14,3 +14,5 @@ state	否	重定向后会带上state参数，开发者可以填写a-zA-Z0-9的�
 #wechat_redirect	是	无论直接打开还是做页面302重定向时候，必须带此参数
 如果想通过静默授权方式获取用户信息，必须第一次调用snsapi_userinfo方式，经用户授权之后，以后再通过snsapi_base获取用户信息之后，就不需要用户授权了，否则则会报48001错误（若snsapi_userinfo授权过了，后续才可以使用静默授权获取到用户信息，不止openId，
 对于静默授权，一般使用在公众号的菜单跳转的页面，因为已经关注过公众号了，所以可以直接通过静默授权获取到用户信息。注：对于主动授权，当用户是从公众号菜单进入的的页面，主动授权会自动转成静默授权，用户无感知）
+对于授权的中间跳转过渡页（https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${rUrl}&response_type=code&scope=${scopeVal}#wechat_redirect），location.replace跳转并不能
+消掉路由历史，这一点还想解决
