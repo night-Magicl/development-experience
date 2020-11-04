@@ -2,7 +2,7 @@
 alipays://platformapi/startapp?appId=xxx&page=x%2Fy%2Fz&query=number%3D1，就是该链接格式，可以直接发到钉钉里，别人就能直接唤起支付宝打开链接，其中 appId 为小程序应用的 appid，page 为小程序的具体页面路径(需 encode)，query 为业务参数(需 encode)                                                 
                                                      H5链接怎么转换成scheme链接
 格式：alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fm.taobao.com&showOptionMenu=NO&startMultApp=YES
-注意是H5链接，不是小程序内部的页面生成的链接，因为scheme链接需要appId，所以需要填写20000067（即为H5App自身的appId，但如果是某些运营页之类的单独页面，没有自己的appId，可以使用Nebula容器的通用浏览器模式appId=20000067 来启动）
+注意是H5链接，不是小程序内部的页面生成的链接，因为scheme链接需要appId，所以需要填写20000067（即为H5App自身的appId，但如果是某些运营页之类的单独页面，没有自己的appId，可以使用Nebula容器的通用浏览器模式appId=20000067 来启动），注意后面的参数拼接方式，参数直接使用&来拼接，不需要起始?参数的值若为中文，则需要encode转码。
 参考链接：http://nebulasdk.alipay.com/jsapi/startup-params.html
                                           小程序导航栏样式调整（尤其下拉颜色渐变，"transparentTitle": "auto"的情况）
 导航栏是不支持颜色，字体大小修改的，包括标题颜色，胶囊按钮颜色及收藏按钮，如何改变呢。其实并不需要去手动更改，因为它是自动变化的，但是变化的前提是你的页面配置中的barButtonTheme不要设置值,因为它的值会影响到导航栏的字体颜色，但是胶囊按钮的颜色在下拉过程中还会自动适应更改，字体颜色被固定死了。改变可以使用页面配置titleBarColor，或者my.setNavigationBar({backgroundColor: '#ffffff'})来达到最终的效果。最好还是使用titleBarColor来实现需求，因为titleBarColor不会影响到导航栏字体颜色默认值，my.setNavigationBar会。
