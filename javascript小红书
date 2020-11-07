@@ -39,3 +39,6 @@ label一般时作为for循环的标签，例如：
     }
     console.log(num)// ss:break-55,continue-95;break-95,continue-99
     当不使用label时，break和continue只是对他的第一层循环起作用，也就是j的for循环，但是使用label：ss后，就会对两个循环同时起作用。label经常时配合break和continu使用的
+                                                          switch语句
+当switch里省略break时，语句会在他匹配到的第一个case后，继续执行后续代码，无论他的case是否匹配知道遇到default为止。当然这在某种情况下很有作用。
+                                                          do while先执行do再执行while
