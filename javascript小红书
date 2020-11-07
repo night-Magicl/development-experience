@@ -3,3 +3,39 @@
   async：立即下载改脚本（外部脚步）
   defer：表示脚本可以延迟到文档完全被解析和显示之后再执行（外部脚步）
   
+                                          									typeof
+判断变量类型，typeof只是个操作符，并不是个函数，所以在使用的时候可以省略（），typeof null 返回object，所以null代表一个尚未存储值的空对象，在声明一个空对象时，要尽量使用null而不是{}
+undefined == null =》 true，注意是==不是===
+																														boolean校验
+开发中，我们经常会在if中判断一个值是否存在，比如const a = 'a',const a = {},const a = 0,const a
+if (a) => ????
+上文中，我们已经知道空对象时指null，所以上述声明的a对应的返回值是：true,true,false,false,其实现原理就是他们自动调用了Boolean()方法，该方法是将数据转换为boolean类型，具体对应参考下表：
+数据类型				 true						 false
+string         非空              空字符串
+number         非0和无穷大        0，NaN
+object         任何对象           null
+																													 浮点类型的数值
+浮点数值相加会导致精度损失，例如：0.1+0.2 并不等于0.3
+																												   将不同进制的数字转换成10进制
+使用parseInt(),例如转换16进制：parseInt('0xAF', 16),第二个参数就是要转换的目标数字的进制数，如果不指定按什么进制解析，在解析一些字符串时会出错，返回NaN
+parseFloat()，只解析16进制的数，对于16进制的数字始终都会解析为0，在解析小数时，只会取第一个点，例如：'0.01.2' => 0.01
+                                                           10进制数转换为其他进制
+使用toString()方法:var num = 10 num.toString(2)二进制，num.toString(8)八进制，num.toString(10)十进制，num.toString(16)十六进制
+                                                           ++和--
+a++和++a一个前置一个后置的区别，a = 1 a++ console.log(a) =》 2，a = 1 ++a console.log(a) =》 2，这是没有区别的，但是当a++放于一个执行方法里时，例如:console.log(a++) =》1；console.log(++a) =》2
+
+
+                                                           break和continue，label
+label一般时作为for循环的标签，例如：
+    let num = 0
+    ss: for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (i == 5 && j == 5) {
+          break ss
+          // continue ss
+        }
+        num++
+      }
+    }
+    console.log(num)// ss:break-55,continue-95;break-95,continue-99
+    当不使用label时，break和continue只是对他的第一层循环起作用，也就是j的for循环，但是使用label：ss后，就会对两个循环同时起作用。label经常时配合break和continu使用的
