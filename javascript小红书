@@ -42,3 +42,62 @@ label一般时作为for循环的标签，例如：
                                                           switch语句
 当switch里省略break时，语句会在他匹配到的第一个case后，继续执行后续代码，无论他的case是否匹配知道遇到default为止。当然这在某种情况下很有作用。
                                                           do while先执行do再执行while
+                                                          数组，对象校验
+Array.isArray(value),会返回true或false
+                                                          valueOf,toLocaleString方法的作用
+							  
+							  
+							  数组操作方法
+	       一、修改原数组
+push在数组末尾添加，并返回修改后数组的长度，push方法的参数可以有多项，会分别插入到数组中，使用逗号隔开
+unshift在数组前端添加，并返回修改后数组的长度，参数可以有多项，会分别插入到数组中，使用逗号隔开
+shift删除数组首项，并返回该项（不是返回删除的数组）
+pop方法删除数组尾项，并返回该项
+                   排序
+reverse，倒序
+sort：按照某种格式排序，sort接收一个函数作为参数，参数的大小决定排列的顺序，数组的元素靠前就返回负数，考后就返回正数，否则就返回0，这三者不可少，例如：
+      function com(val1,val2) {
+          if (val1 < val2) {
+	     return -1
+	  } else if (val1>val2) {
+	     return 1
+	  } else {
+	     return 0
+	  }
+      }               var arr = [1,3,7,2,5] console.log(arr.sort(com))
+      比较大小简化版：function coms(val1,val2){ return val1-val2 }
+             二、复制数组，不会改变原数组，会返回一个新数组
+concat:合并数组方法，参数可以是一个元素或者时一个数组，也能拼着用逗号隔开传入，
+slice:截取数组并返回被截取的新数组，接收两个参数（起始和结束位置），都代表下标位置，也可传一个参数，代表从什么地方开始截取到末尾结束，若传的都是负数则从右往左数起始位置和结束位置。注意：第一个参数应该始终小于第二个参数，-1是数组最后一项,若穿的参数是（-1，-2），则截取不到，因为本身参数就传错了
+             三、修改数组，会修改原数组，删除的项组成新的数组并返回，没有删除就返回空数组
+splice：方法，接收3个参数，第一个参数是位置，第二个代表长度，第三个，第四个第五个....代表新元素（前两个参数已传的前提下），经常用于删除，插入，替换修改。
+        删除：只传前两个参数就是删除功能，会删除数组指定的项，删除的项组成新的数组并返回
+	 插入：三个参数全传，第二个参数传0就是插入
+	 替换：三个参数全传，第二个参数不为0就是替换
+             四：位置
+indexOf,lastIndexOf:返回某一元素在数组中的位置，lastIndexOf从后开始查询
+             五、es5新增的数组操作方法
+every：只有所有元素都返回true的时候返回true
+some:只要有任一元素返回true就返回true
+filter:返回符合函数方法的元素组成的数组
+map：返回经过函数操作过的数组
+forEach：类似for循环
+reduce:可以用来求数组所以元素之和，有四个参数，分别是prev, cur, index, array,代表上一次返回值，当前元素，当前元素下标，数组本身。prev每次都是上一次循环后的返回值，当然，在第一次循环没有返回值，所以第一次循环的prev是数组第一项，且第一次循环的cur是数组第二项，也就是数组只循环执行了arr.length-1次。reduceRight是反向循环
+             
+	     
+	                                        function函数
+在函数内部有arguments和this，arguments代码函数的参数对象，这个对象还有个属性叫callee，它代表着这个函数本身，例如
+              function count(num) {
+	       console.log(count.caller)
+	       console.log(arguments.callee.caller)
+	       if (num<=1){return 1}else{
+	        return num * count(num - 1)
+	       }
+	      }    像这种写法，当函数名改变的时候就会报错，而执行不下去。但是换成callee,就没问题了
+	      function count(num) {
+	       if (num<=1){return 1}else{
+	        return num * arguments.callee(num - 1)
+	       }
+	      }
+es5新增了caller属性，作用是保存着调用此函数的引用。比如this.count，在count内部打印count.caller或arguments.callee.caller就是指向this对象。若是在函数内部调用count，count内部打印count.caller或arguments.callee.caller就是指向count的父级函数
+	     
