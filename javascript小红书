@@ -5,7 +5,7 @@
   
                                           									typeof
 判断变量类型，typeof只是个操作符，并不是个函数，所以在使用的时候可以省略（），typeof null 返回object，所以null代表一个尚未存储值的空对象，在声明一个空对象时，要尽量使用null而不是{}
-undefined == null =》 true，注意是==不是===
+undefined == null =》 true，注意是==不是===     注意：const a=null; a.b = 'b'会报错，所以想直接在null的基础上扩展时错误的，赋值倒是可以
 																														boolean校验
 开发中，我们经常会在if中判断一个值是否存在，比如const a = 'a',const a = {},const a = 0,const a
 if (a) => ????
@@ -100,4 +100,28 @@ reduce:可以用来求数组所以元素之和，有四个参数，分别是prev
 	       }
 	      }
 es5新增了caller属性，作用是保存着调用此函数的引用。比如this.count，在count内部打印count.caller或arguments.callee.caller就是指向this对象。若是在函数内部调用count，count内部打印count.caller或arguments.callee.caller就是指向count的父级函数
-	     
+
+在function声明的函数中，this是undefined，所以如果想给this赋以具体的值,并将this传递给调用它的函数本身，就可以使用apply或者call方法。这两种方法的作用是一样的，只是在不同场景下哪个方便的问题，区别仅在于传参的方式，例如：
+              function count(num1,num2) {
+	       console.log(this)
+	       return num1 + num2
+	      }
+	      count(10,10)   => undefined, 20
+	      count.call(window,10,10)   => window, 20
+	      count.call(this,10,10)   => window, 20
+	      
+	      function count2(num1,num2) {
+	       return count.apply(this, arguments)
+	      }
+	      count2.call(this, 10, 10)
+	  apply于call方法的第一个参数都是this的值，区别apply的第二个参数是arguments对象，而call是将参数直接传给函数。当然在函数不接收参数的时候，以上两种方法没有区别，但是在函数内部调用函数时，便于this的传递，使用apply可能会更加方便。这里我传的都是this，也可以传一个对象，这个无所谓.
+	  bind方法，是用于创建一个新函数实例，并为这个函数指定this指针，例如：
+	  var o = { color: 'red' }
+          function count3(num1, num2) {
+           console.log(this.color)
+           return num1 + num2
+          }
+          var fun = count3.bind(o) // fun就是新的函数实例
+          console.log(fun(10, 20)) // red
+	  apply于call方法的第一个参数都是this的值，区别apply的第二个参数是arguments对象，而call是将参数直接传给函数。当然在函数不接收参数的时候，以上两种方法没有区别，但是在函数内部调用函数时，便于this的传递，使用apply可能会更加方便。这里我传的都是this，也可以传一个对象，这个无所谓.，
+	  apply于call方法的第一个参数都是this的值，区别apply的第二个参数是arguments对象，而call是将参数直接传给函数。当然在函数不接收参数的时候，以上两种方法没有区别，但是在函数内部调用函数时，便于this的传递，使用apply可能会更加方便。这里我传的都是this，也可以传一个对象，这个无所谓.
