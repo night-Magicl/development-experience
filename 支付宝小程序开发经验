@@ -23,3 +23,11 @@ alipays://platformapi/startapp?appId=xxx&page=x%2Fy%2Fz&query=number%3D1，就�
                                                     支付宝小程序跳转活动页或支付宝插件页（保险产品详情页）
 一般跳转H5页面只能嵌套在webView里，但是该webView页面里的h5页面不能再跳转其他域名链接或是支付宝插件页，想要跳转支付宝插件页，可以通过my.ap.navigateToAlipayPage方法跳转，想要实现在webView里的H5跳转到该插件页，就需要使用webView与小程序通信，在H5页面里引入https://appx/web-view.min.js，就可以直接使用小程序的api，这是web-view.js所支持的api：https://opendocs.alipay.com/mini/component/web-view。通信之后在小程序里再次使用my.ap.navigateToAlipayPage方法跳转即可。
 注意：跳转的插件页需要转换一下，转换方法在支付宝打开该插件页，将其分享到钉钉，然后复制该分享链接，在浏览器打开，但并不是直接打开，你要在进度条加载完之前，快速按下esc取消加载，此时路由地址里的链接就是我们需要的链接，把该链接使用decodeURIComponen解码两次即可得到我们需要的链接，这个链接就可以用my.ap.navigateToAlipayPage跳转。参考链接L：https://forum.alipay.com/mini-app/post/17101017
+
+
+
+
+                                                    支付宝小程序音视频通话文档，需要chrome无痕浏览
+https://opendocs.alipay.com/mini/api/rtcroom
+https://opendocs.alipay.com/mini/introduce/vrgygu
+https://gw.alipayobjects.com/os/bmw-prod/6a2ad8e4-ee6e-4240-82cc-0c66a3c90570.pdf
